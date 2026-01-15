@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MISSIONS } from './constants';
 import { GameState, MissionStatus, AIResponse, Situation } from './types';
-import { evaluateAnswer, generateSituation, askAssistant } from './services/gemini';
+import { evaluateAnswer, generateSituation, askAssistant } from './gemini';
 
 const QUESTIONS_PER_SESSION = 5;
 
@@ -42,7 +42,7 @@ const App: React.FC = () => {
       setCurrentSituation(newSit);
       setSituationHistory(prev => [...prev, newSit.description]);
     } catch (err) {
-      console.error("Lỗi khi tải tình huống:", err);
+      console.error(err);
     } finally {
       setGenLoading(false);
     }
@@ -78,7 +78,7 @@ const App: React.FC = () => {
       const result = await evaluateAnswer(mission.title, currentSituation.description, answer);
       setFeedback(result);
     } catch (err) {
-      console.error("Lỗi khi gửi câu trả lời:", err);
+      console.error(err);
     } finally {
       setLoading(false);
     }
