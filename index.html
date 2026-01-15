@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trợ lý Công dân số Nhí</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bubble-color: rgba(255, 255, 255, 0.4);
+        }
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        /* Hiệu ứng bong bóng nền */
+        .bubbles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .bubble {
+            position: absolute;
+            background: var(--bubble-color);
+            border-radius: 50%;
+            bottom: -100px;
+            animation: rise 15s infinite ease-in;
+        }
+        @keyframes rise {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            20% { opacity: 0.5; }
+            100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
+        }
+        /* Nút bấm kiểu hoạt hình */
+        .btn-bouncy {
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .btn-bouncy:hover {
+            transform: scale(1.05) translateY(-2px);
+        }
+        .btn-bouncy:active {
+            transform: scale(0.95);
+        }
+        /* Thanh cuộn tùy chỉnh */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.35.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "@vercel/node": "https://esm.sh/@vercel/node@^5.5.19"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div class="bubbles" id="bubble-container"></div>
+    <div id="root"></div>
+    <script>
+        // Tạo bong bóng nền ngẫu nhiên
+        const container = document.getElementById('bubble-container');
+        for (let i = 0; i < 15; i++) {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            const size = Math.random() * 60 + 20 + 'px';
+            bubble.style.width = size;
+            bubble.style.height = size;
+            bubble.style.left = Math.random() * 100 + '%';
+            bubble.style.animationDelay = Math.random() * 10 + 's';
+            bubble.style.animationDuration = Math.random() * 10 + 10 + 's';
+            container.appendChild(bubble);
+        }
+    </script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
