@@ -1,46 +1,41 @@
 
 export enum MissionStatus {
-  LOCKED = 'LOCKED',
-  AVAILABLE = 'AVAILABLE',
+  NOT_STARTED = 'NOT_STARTED',
   IN_PROGRESS = 'IN_PROGRESS',
   COMPLETED = 'COMPLETED'
+}
+
+export interface Situation {
+  id: string;
+  description: string;
+  question: string;
 }
 
 export interface Mission {
   id: number;
   title: string;
   description: string;
-  icon: string;
+  situations: Situation[];
   status: MissionStatus;
-  starsEarned: number;
-  totalStars: number;
-}
-
-export interface ChatMessage {
-  role: 'user' | 'model';
-  text: string;
-  timestamp: Date;
-  starsAwarded?: number;
+  score: number;
+  icon: string;
+  color: string;
 }
 
 export interface AIResponse {
-  evaluation?: {
-    score: number;
-    stars: number;
-    comment: string;
-    explanation: string;
-    suggestion?: string;
-  };
-  narrative: string;
-  nextQuestion?: string;
-  isRetryPrompt: boolean;
-  isMissionEnd: boolean;
+  score: number;
+  feedback: string;
+  consequence: string;
+  suggestion: string;
+  isAppropriate: boolean;
 }
 
-export interface Achievement {
-  minStars: number;
-  label: string;
-  badge: string;
-  color: string;
-  description: string;
+export type ViewState = 'DASHBOARD' | 'PLAYING' | 'SUMMARY' | 'QA' | 'FINISHED';
+
+export interface GameState {
+  currentMissionIndex: number | null;
+  currentSituationIndex: number;
+  totalStars: number;
+  missions: Mission[];
+  view: ViewState;
 }
